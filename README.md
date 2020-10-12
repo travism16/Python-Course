@@ -1,3 +1,3 @@
 # Python-Course
 
-This is me editing on the lab server
+Here is where I will make changes for my Python course
