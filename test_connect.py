@@ -8,7 +8,7 @@ cisco3 = {
 	"username": "pyclass",
 	"password": getpass(),
 	"device_type": "cisco_ios",
-	"session_log": "cisco3_session.txt" 
+	#"session_log": "cisco3_session.txt" 
 }
 
 cisco4 = {
@@ -16,7 +16,7 @@ cisco4 = {
         "username": "pyclass",
         "password": getpass(),
         "device_type": "cisco_ios",
-        "session_log": "cisco4_session.txt"
+        #"session_log": "cisco4_session.txt"
 }
 
 for device in (cisco3, cisco4):
