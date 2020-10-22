@@ -19,6 +19,10 @@ cisco4 = {
         #"session_log": "cisco4_session.txt"
 }
 
+command = "sh ip int brief"
+
 for device in (cisco3, cisco4):
 	net_connect = ConnectHandler(**device)
 	print(net_connect.find_prompt())
+	print(net_connect.send_command(command)
+	print("-" * 30)
