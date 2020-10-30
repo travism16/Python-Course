@@ -1,0 +1,12 @@
+vlan 100
+name Party1
+vlan 101
+name Hard1
+vlan 102
+name Party2
+vlan 103
+name Hard2
+vlan 104
+name Party3
+vlan 105
+name Hard3
