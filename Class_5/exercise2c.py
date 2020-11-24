@@ -1,6 +1,7 @@
 from jinja2 import FileSystemLoader, StrictUndefined
 from jinja2.environment import Environment
 from netmiko import ConnectHandler
+import re
 
 # Create Jinja2 environment and set template folders
 env = Environment(undefined=StrictUndefined)
@@ -41,8 +42,8 @@ for device in (nxos1, nxos2):
     j2_vars = temp_device.pop("j2_vars")
     commands = template.render(**j2_vars) 
     print("=" * 40)
-    print()
     print(f"Configure device {device['host']} with these commands:")
+    print("=" * 40)
     print()
     print(commands)
     print()
@@ -65,11 +66,12 @@ print("Performing tests on devices...")
 print('=' * 40)
 print()
 
-# Verify results
+# Verify results - Ping
 for device in (nxos1, nxos2):
+    temp_device = device.copy()
     remote_ip = device['j2_vars']['peer_ip']
-    del device['j2_vars']
-    net_connect = ConnectHandler(**device)
+    del temp_device['j2_vars']
+    net_connect = ConnectHandler(**temp_device)
     prompt = net_connect.find_prompt()
     output = net_connect.send_command(f"ping {remote_ip}")
     print(device['host'])
@@ -81,5 +83,25 @@ for device in (nxos1, nxos2):
     print('=' * 40)
     print()
 
+# Verify results - BGP
+for device in (nxos1, nxos2):
+    temp_device = device.copy()
+    remote_ip = device['j2_vars']['peer_ip']
+    del temp_device['j2_vars']
+    net_connect = ConnectHandler(**temp_device)
+    prompt = net_connect.find_prompt()
+    output = net_connect.send_command(f"sh ip bgp summary | inc {remote_ip}")
+    bgp_search = re.search(r"\s+(\S+)\s*$", output)
+    search_result = bgp_search.group(1)
+    print(device['host'])
+    try:
+        int(search_result)
+        print("BGP session is established")
+        print()
+    except ValueError:
+        print("BGP session failed to establish!")
+        print()
+    net_connect.disconnect()
 
-
+print("=" * 40)
+print()
