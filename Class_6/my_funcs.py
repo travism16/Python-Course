@@ -1,7 +1,6 @@
 import yaml
 
-def yaml_loader():
-    file = "arista_devices.yml"
+def yaml_loader(file = "arista_devices.yml"):
     with open(file) as f:
         return yaml.safe_load(f)
     raise ValueError("Readin YAML file failed")
