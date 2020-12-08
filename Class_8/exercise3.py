@@ -3,10 +3,13 @@ from jnpr.junos.utils.config import Config
 from jnpr.junos.exception import LockError
 from pprint import pprint
 from juniper_devices import srx2
+from exercise2.py import check_connected
 
 my_device = Device(**srx2)
 my_device.open()
 my_device.timeout = 60
+
+check_connected(my_device)
 
 cfg = Config(my_device)
 
