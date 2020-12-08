@@ -19,6 +19,7 @@ def check_connected(device):
         raise SystemExit
 
 def gather_routes(device):
+    print("Gathering current routing table...\n")
     routes = RouteTable(device)
     routes.get()
     return routes
