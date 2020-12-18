@@ -18,4 +18,12 @@ arista1 = dict(
 	optional_args={},
 )
 
-all_devices = [cisco3, arista1]
+nxos1 = {
+    "hostname": "nxos1.lasthop.io",
+    "device_type": "nxos",
+    "username": "pyclass",
+    "password": password,
+    "optional_args": {"port": 8443}
+}
+
+all_devices = [cisco3, arista1, nxos1]
